@@ -1,0 +1,7 @@
+create database imc;
+use imc;
+create table perfil (id int auto_increment, nome varchar(40), idade int (3), sexo varchar(1), email varchar(100), telefone varchar(16), data_cadastro timestamp default current_timestamp, primary key(id));
+create table historico_imc (id int auto_increment, id_perfil int, data timestamp default current_timestamp, peso decimal (5,2), altura decimal (3,2), imc decimal (4,2) as ( peso / (altura * altura) ) , primary key (id), foreign key (id_perfil) references perfil (id));
+create table dieta (id int auto_increment, id_perfil int, nome varchar(20) , primary key (id), foreign key (id_perfil) references perfil (id));
+create table alimento (id int auto_increment, descricao varchar (100),quantidade varchar(40), calorias int (6), primary key (id));
+create table dieta_detalhe (id int auto_increment, id_dieta int, id_alimento int, quantidade int (2), primary key (id), foreign key (id_dieta) references dieta (id), foreign key (id_alimento) references alimento (id));
